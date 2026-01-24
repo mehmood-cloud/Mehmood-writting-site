@@ -1,0 +1,235 @@
+/* Minimalist, readable styling inspired by Paul Graham / Talha Ashraf sites */
+:root{
+	--max-width: 680px;
+	--accent: #111;
+	--muted: #555;
+}
+html,body{
+	height:100%;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	overflow-x: hidden;
+	max-width: 100vw;
+	width: 100%;
+}
+body{
+	margin:0;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-size:15px;
+	line-height:1.55;
+	color:#111;
+	background:#fff;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	overflow-x: hidden;
+	max-width: 100vw;
+	width: 100%;
+}
+.wrap{
+	/* left-aligned full-width layout per user request */
+	max-width:100vw;
+	width:100%;
+	padding:28px 36px;
+	margin:0;
+	transform-origin: left top;
+	box-sizing: border-box;
+	overflow-x: hidden;
+	/* CSS variable used by JS to scale the whole content */
+	--scale: 1;
+	transform: scale(var(--scale));
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+
+/* Page container for non-home pages: centered, with top spacing so fixed buttons don't overlap */
+.page{
+	max-width: min(760px, calc(100vw - 80px));
+	/* left-aligned: leave a left gutter and allow the page to flow to the right */
+	margin:72px 0 0 36px; /* top, right, bottom, left */
+	padding:0 20px;
+	box-sizing:border-box;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	overflow-x: hidden;
+	width: auto;
+}
+
+.page header h1{ margin-top:0; max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; }
+.topline .meta{
+	display:flex;
+	gap:12px;
+	font-size:13px;
+	color:#444;
+	align-items:center;
+}
+.topline .meta a{ color:inherit; text-decoration:none }
+.name{ margin:10px 0 6px 0; font-size:32px; font-weight:700; max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; }
+.name{ font-family: cursive; }
+
+/* Home button (flows with content, no overlap) */
+.home-btn{
+	display:inline-block;
+	padding:6px 10px;
+	border-radius:6px;
+	background:rgba(0,0,0,0.05);
+	color:var(--text);
+	text-decoration:none;
+	border:1px solid rgba(0,0,0,0.08);
+	font-size:13px;
+	margin-bottom:14px;
+}
+.home-btn:hover{ background:rgba(0,0,0,0.10); text-decoration:underline }
+
+@media (max-width:640px){
+	html, body { max-width: 100vw; width: 100%; overflow-x: hidden; }
+	.wrap { max-width: 100vw; width: 100%; overflow-x: hidden; padding: 18px; }
+	.page { margin: 28px 12px 24px 12px; max-width: calc(100vw - 36px); overflow-x: hidden; }
+	.home-btn{ padding:5px 8px; font-size:12px }
+	.controls-fixed { position: fixed; top: 14px; right: 14px; z-index: 999999; display: flex !important; visibility: visible !important; opacity: 1 !important; }
+	.ctrl-btn { visibility: visible !important; opacity: 1 !important; display: block !important; }
+}
+.blurb{ margin:0 0 18px 0; color:#666; font-size:13px; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+.section{ margin:22px 0; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+.section h2{ margin:0 0 6px 0; font-size:14px; font-weight:600; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+.links{ list-style:none; padding:0; margin:8px 0 0 0; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+.links li{ margin:6px 0; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+.links a{ color:inherit; text-decoration:none; word-wrap: break-word; overflow-wrap: break-word; display: inline-block; max-width: 100%; }
+.links a:hover{ text-decoration:underline }
+.foot{ margin-top:28px; color:#666; font-size:13px; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; }
+
+/* Controls fixed top-right */
+.controls-fixed{
+	position:fixed;
+	top:14px;
+	right:14px;
+	display:flex;
+	gap:8px;
+	align-items:center;
+	background:rgba(255,255,255,0.95);
+	padding:8px 10px;
+	border-radius:8px;
+	box-shadow:0 4px 12px rgba(0,0,0,0.15);
+	z-index:999999;
+	backdrop-filter: blur(8px);
+	border:1px solid rgba(0,0,0,0.1);
+	pointer-events: auto;
+	visibility: visible !important;
+	opacity: 1 !important;
+	display: flex !important;
+}
+.ctrl-btn{
+	background:none;
+	border:1px solid rgba(0,0,0,0.2);
+	padding:6px 10px;
+	border-radius:6px;
+	font-size:13px;
+	cursor:pointer;
+	color:inherit;
+	visibility: visible !important;
+	opacity: 1 !important;
+	pointer-events: auto;
+	white-space: nowrap;
+}
+.ctrl-btn:hover{ background:rgba(0,0,0,0.08); border-color:rgba(0,0,0,0.3) }
+.controls-status{ color:var(--muted); font-size:13px; visibility: visible !important; opacity: 1 !important; display: none; }
+
+/* Button colors that change per theme */
+.theme-1 .controls-fixed{ background:rgba(247,243,238,0.9) }
+.theme-2 .controls-fixed{ background:rgba(15,23,32,0.75); color:var(--text) }
+.theme-3 .controls-fixed{ background:rgba(255,250,240,0.95) }
+
+/* compact, dense feel similar to talhaashraf */
+@media (max-width:640px){
+	.wrap{ padding:18px }
+	.name{ font-size:26px }
+}
+
+/* Dark mode via prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+	body{
+		background:#0b0b0b;
+		color:#e6e6e6;
+	}
+
+	.blurb, .topline .meta, .foot{ color:#bdbdbd }
+	a{ color:#9ad8ff }
+}
+
+/* Theme variables: default + alternate themes */
+:root{
+	--bg: #f7f7f2; /* default set to theme-1 */
+	--text: #111111;
+	--muted: #666666;
+	--link: #b02e0c;
+}
+body{ background:var(--bg); color:var(--text) }
+.topline .meta, .blurb, .foot{ color:var(--muted) }
+a{ color:var(--link) }
+
+/* Theme variants */
+.theme-1{ --bg:#f7f7f2; --text:#111; --muted:#555; --link:#b02e0c }
+.theme-2{ --bg:#08101a; --text:#f3f7fb; --muted:#93a9bf; --link:#7dd3fc }
+
+/* Improve button visibility in dark theme */
+.theme-2 .controls-fixed{
+	background:rgba(8,16,26,0.92);
+	color:var(--text);
+}
+.theme-2 .ctrl-btn{
+	border-color: rgba(255,255,255,0.10);
+	color:var(--text);
+}
+.theme-2 .ctrl-btn:hover{ background:rgba(255,255,255,0.03) }
+.theme-3{ --bg:#fffaf0; --text:#1b1b12; --muted:#7a6b4f; --link:#c06500 }
+
+/* News article styling for essays */
+.essay-article {
+	max-width: min(760px, calc(100vw - 100px));
+	line-height: 1.8;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+}
+.essay-article .lead {
+	font-size: 18px;
+	font-weight: 600;
+	margin: 20px 0 24px 0;
+	line-height: 1.7;
+	color: var(--text);
+	border-left: 3px solid var(--link);
+	padding-left: 16px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+.essay-article p {
+	margin: 14px 0;
+	font-size: 16px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+.essay-article .byline {
+	font-size: 13px;
+	color: var(--muted);
+	margin: 12px 0 24px 0;
+	font-style: italic;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+.essay-article h2 {
+	font-size: 20px;
+	font-weight: 600;
+	margin: 32px 0 16px 0;
+	color: var(--text);
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}

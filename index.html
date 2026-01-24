@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Mehmood — notes, essays, and links." />
+    <title>Mehmood</title>
+    <!-- Load playful / 'awkward & happy' fonts from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Mountains+of+Christmas&family=Henny+Penny&family=Atma&family=DynaPuff&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style.css" />
+  </head>
+  <body class="ta-style">
+    <div class="wrap">
+      <header class="topline">
+        <nav class="meta">
+          <!-- meta links here -->
+        </nav>
+        <h1 class="name">Mehmood</h1>
+        <pre><p class="blurb">Polymath
+• Books read ~ 0
+• Solo products built ~ <a href="Products built.html">2</a> 
+• Shit posting ▸ <a href="posts.html">♡</a>
+• About Me ~ <a href="about.html">Mi</a>
+</p></pre>
+        
+      </header>
+
+      <main>
+        <section class="section">
+          <h2>Short Essays</h2>
+          <ul class="links">
+            
+            <li>
+              <a href="Short Essays/Idk What Should I write.html">Idk What Should I write</a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>Recommendations</h2>
+          <ul class="links">
+            <li>Books</li>
+            <li>Articles</li>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <small>(Or boss, life kesi chal ri ap kii?)</small>
+      </footer>
+    </div>
+
+    <!-- Fixed controls in top-right -->
+    <div class="controls-fixed" aria-hidden="false">
+      <button id="size-btn" class="ctrl-btn" aria-pressed="false">Size</button>
+      <button id="theme-btn" class="ctrl-btn" aria-pressed="false">Color</button>
+      <span id="controls-status" aria-live="polite" class="controls-status">&nbsp;</span>
+    </div>
+
+    <!-- Random title font script: picks one font from the list on each load -->
+    <script>
+      (function(){
+        const fonts = ['Hachi Maru Pop','Mountains of Christmas','Henny Penny','Atma','DynaPuff','Fredoka One'];
+        const limit = 4; // first N fonts to choose from
+        const pool = fonts.slice(0, Math.max(1, Math.min(limit, fonts.length)));
+        const pick = pool[Math.floor(Math.random()*pool.length)];
+        const nameEl = document.querySelector('.name');
+        if(nameEl){
+          nameEl.style.fontFamily = `'${pick}', cursive`;
+        }
+      })();
+    </script>
+
+    <script>
+        (function(){
+          const wrap = document.querySelector('.wrap');
+          const sizeBtn = document.getElementById('size-btn');
+          const themeBtn = document.getElementById('theme-btn');
+          const status = document.getElementById('controls-status');
+
+          const sizeLevels = [1, 1.5, 2, 3]; // 0..3, 4th click wraps to 0
+          let sizeIndex = 0; // start at default
+
+          // Theme order: theme-1 should be the default first choice
+          const themes = ['theme-1','theme-2','theme-3',''];
+          // load saved theme/size from localStorage if available
+          let themeIndex = 0;
+          try{
+            const savedTheme = localStorage.getItem('site-theme');
+            const savedSize = localStorage.getItem('site-size');
+            if(savedSize){
+              const idx = sizeLevels.indexOf(Number(savedSize));
+              if(idx >= 0) sizeIndex = idx;
+            }
+            if(savedTheme){
+              const idx = themes.indexOf(savedTheme);
+              if(idx >= 0) themeIndex = idx;
+            }
+          }catch(e){ /* ignore localStorage errors */ }
+
+          function updateSize(){
+            const mult = sizeLevels[sizeIndex];
+            // apply CSS variable on wrap for transform scale
+            wrap.style.setProperty('--scale', mult);
+            // keep button label short, show current in status and tooltip
+            sizeBtn.textContent = 'Size';
+            sizeBtn.setAttribute('title', mult === 1 ? 'Original size' : '×' + mult);
+            status.textContent = mult === 1 ? 'Size: original' : ('Size: ×' + mult);
+          }
+
+          function updateTheme(){
+            // remove existing theme classes
+            document.body.classList.remove('theme-1','theme-2','theme-3');
+            const t = themes[themeIndex];
+            if(t) document.body.classList.add(t);
+            themeBtn.textContent = 'Color';
+            themeBtn.setAttribute('title', t ? t : 'default');
+            status.textContent = t ? ('Theme: ' + t.replace('theme-','')) : 'Theme: default';
+
+            // persist
+            try{ localStorage.setItem('site-theme', t || ''); }catch(e){}
+          }
+
+          themeBtn.addEventListener('click', function(){
+            themeIndex = (themeIndex + 1) % themes.length;
+            updateTheme();
+          });
+
+          // initialize labels
+          updateSize();
+          updateTheme();
+
+          // (removed system dark/light auto-detection per request)
+
+          // persist size changes
+          const origUpdateSize = updateSize;
+          function updateSizePersist(){
+            origUpdateSize();
+            try{ localStorage.setItem('site-size', sizeLevels[sizeIndex]); }catch(e){}
+          }
+          // replace the click handler to persist size
+          sizeBtn.removeEventListener('click', function(){});
+          sizeBtn.addEventListener('click', function(){
+            sizeIndex = (sizeIndex + 1) % sizeLevels.length;
+            updateSizePersist();
+          });
+        })();
+      </script>
+  </body>
+</html>
