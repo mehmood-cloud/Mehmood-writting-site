@@ -5,57 +5,50 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Idk What Should I Write — Mehmood</title>
   <link rel="stylesheet" href="../Style.css" />
+  <script defer src="/_vercel/insights/script.js"></script>
   <script>
     (function() {
       if (localStorage.getItem('light') === '1') document.documentElement.classList.add('light');
-      var sz = parseInt(localStorage.getItem('sz') || '0');
-      document.documentElement.style.setProperty('--base', [16,18,20][sz] + 'px');
+      document.documentElement.style.setProperty('--base', [16,18,20][parseInt(localStorage.getItem('sz')||'0')] + 'px');
     })();
   </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <div class="page">
-    <a href="../index.html" class="back">← Mehmood</a>
-    <h1>Idk What Should I Write</h1>
-    <div class="byline-row">
-      <span class="byline">Jun 2026 · thinking</span>
-      <div class="controls">
-        <button class="ctrl-btn" id="theme-btn">light</button>
-        <button class="ctrl-btn" id="size-btn">text size</button>
-      </div>
-    </div>
-    <hr>
 
-    <article>
-      <p>Hi.</p>
+  <div class="controls-fixed">
+    <button class="ctrl-btn" id="theme-btn">theme</button>
+    <button class="ctrl-btn" id="size-btn">font</button>
+  </div>
 
-      <p>We're paralyzed by choice. Too many topics, too many angles, too many voices already saying what we want to say. So we sit, staring at a blank page, wondering if what we have to offer is even worth the time.</p>
+  <a href="../index.html" class="top-label">Home</a>
 
-      <h2>The Weight of Relevance</h2>
-      <p>There's an unspoken pressure to write about what's trending, what's urgent, what everyone else is talking about. But urgency isn't depth. Popularity isn't meaning. The best writing comes from genuine curiosity, not from FOMO.</p>
+  <h1 class="page-title">Idk What Should I Write</h1>
+  <p class="byline">Jun, 2026</p>
 
-      <h2>Just Write</h2>
-      <p>The truth is simpler: stop overthinking. Write about what fascinates you, even if it's weird. Especially if it's weird. The pieces that resonate most are the ones written with honest confusion, not polished certainty.</p>
+  <article>
+    <p>Hi.</p>
 
-      <p>Maybe the real essay isn't about having all the answers. Maybe it's about thinking out loud, in public, without the pressure to be profound. Sometimes the best thing you can write is exactly this — admitting you're not sure what to write about.</p>
-    </article>
+    <p>We're paralyzed by choice. Too many topics, too many angles, too many voices already saying what we want to say. So we sit, staring at a blank page, wondering if what we have to offer is even worth the time.</p>
 
+    <h2>The Weight of Relevance</h2>
+    <p>There's an unspoken pressure to write about what's trending, what's urgent, what everyone else is talking about. But urgency isn't depth. Popularity isn't meaning. The best writing comes from genuine curiosity, not from FOMO.</p>
+
+    <h2>Just Write</h2>
+    <p>The truth is simpler: stop overthinking. Write about what fascinates you, even if it's weird. Especially if it's weird. The pieces that resonate most are the ones written with honest confusion, not polished certainty.</p>
+
+    <p>Maybe the real essay isn't about having all the answers. Maybe it's about thinking out loud, in public, without the pressure to be profound. Sometimes the best thing you can write is exactly this — admitting you're not sure what to write about.</p>
+  </article>
+
+  <div class="foot">
+    <a href="../index.html">← Mehmood</a>
   </div>
 
   <script>
     (function() {
-      var sizes = [16, 18, 20];
-      var si = parseInt(localStorage.getItem('sz') || '0');
-      var themeBtn = document.getElementById('theme-btn');
-      function updateThemeLabel() {
-        themeBtn.textContent = document.documentElement.classList.contains('light') ? 'dark' : 'light';
-      }
-      updateThemeLabel();
-      themeBtn.addEventListener('click', function() {
+      var sizes = [16, 18, 20], si = parseInt(localStorage.getItem('sz') || '0');
+      document.getElementById('theme-btn').addEventListener('click', function() {
         var l = document.documentElement.classList.toggle('light');
         localStorage.setItem('light', l ? '1' : '0');
-        updateThemeLabel();
       });
       document.getElementById('size-btn').addEventListener('click', function() {
         si = (si + 1) % sizes.length;

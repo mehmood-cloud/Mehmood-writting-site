@@ -5,45 +5,36 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Products — Mehmood</title>
   <link rel="stylesheet" href="Style.css" />
+  <script defer src="/_vercel/insights/script.js"></script>
   <script>
     (function() {
       if (localStorage.getItem('light') === '1') document.documentElement.classList.add('light');
-      var sz = parseInt(localStorage.getItem('sz') || '0');
-      document.documentElement.style.setProperty('--base', [16,18,20][sz] + 'px');
+      document.documentElement.style.setProperty('--base', [16,18,20][parseInt(localStorage.getItem('sz')||'0')] + 'px');
     })();
   </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <div class="page">
-    <a href="index.html" class="back">← Mehmood</a>
-    <h1>Products</h1>
-    <hr>
 
-    <ul class="bullets">
-      <li><a href="#">Tiny tool</a> — small utility (link coming)</li>
-      <li><a href="#">Personal site</a> — this site</li>
-    </ul>
-
-    <footer class="foot">
-      <button class="ctrl-btn" id="theme-btn">light</button>
-      <button class="ctrl-btn" id="size-btn">text size</button>
-    </footer>
+  <div class="controls-fixed">
+    <button class="ctrl-btn" id="theme-btn">theme</button>
+    <button class="ctrl-btn" id="size-btn">font</button>
   </div>
+
+  <a href="index.html" class="top-label">Home</a>
+
+  <h1 class="page-title">Products</h1>
+
+  <ul class="bullets">
+    <li><a href="#">Tiny tool</a> — small utility (link coming)</li>
+    <li><a href="#">Personal site</a> — this site</li>
+  </ul>
 
   <script>
     (function() {
-      var sizes = [16, 18, 20];
-      var si = parseInt(localStorage.getItem('sz') || '0');
-      var themeBtn = document.getElementById('theme-btn');
-      function updateThemeLabel() {
-        themeBtn.textContent = document.documentElement.classList.contains('light') ? 'dark' : 'light';
-      }
-      updateThemeLabel();
-      themeBtn.addEventListener('click', function() {
+      var sizes = [16, 18, 20], si = parseInt(localStorage.getItem('sz') || '0');
+      document.getElementById('theme-btn').addEventListener('click', function() {
         var l = document.documentElement.classList.toggle('light');
         localStorage.setItem('light', l ? '1' : '0');
-        updateThemeLabel();
       });
       document.getElementById('size-btn').addEventListener('click', function() {
         si = (si + 1) % sizes.length;

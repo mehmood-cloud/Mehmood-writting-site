@@ -6,69 +6,52 @@
   <meta name="description" content="Mehmood" />
   <title>Mehmood</title>
   <link rel="stylesheet" href="Style.css" />
+  <script defer src="/_vercel/insights/script.js"></script>
   <script>
     (function() {
       if (localStorage.getItem('light') === '1') document.documentElement.classList.add('light');
-      var sz = parseInt(localStorage.getItem('sz') || '0');
-      document.documentElement.style.setProperty('--base', [16,18,20][sz] + 'px');
+      document.documentElement.style.setProperty('--base', [16,18,20][parseInt(localStorage.getItem('sz')||'0')] + 'px');
     })();
   </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <strong class="site-name">Mehmood</strong>
-      <ul class="intro-points">
-        <li>polymath</li>
-        <li>i write</li>
-        <li class="no-dot">
-          <form class="suggest-form" name="suggestions" netlify>
-            <div class="suggest-row">
-              <input class="suggest-input" type="text" name="suggestion" placeholder="any suggestions? opinions? thoughts?" required />
-              <button class="suggest-btn" type="submit">send</button>
-            </div>
-          </form>
-        </li>
-      </ul>
-    </header>
-    <hr>
 
-    <main>
-      <div class="section-header">
-        <span class="label">Writing</span>
-        <div class="controls">
-          <button class="ctrl-btn" id="theme-btn">dark</button>
-          <button class="ctrl-btn" id="size-btn">text size</button>
-        </div>
-      </div>
-      <ul class="writing-list">
-        <li>
-          <a href="Short Essays/Idk What Should I write.html">Idk What Should I Write</a>
-          <span class="date">Jun 2026</span>
-        </li>
-      </ul>
-
-    </main>
+  <div class="controls-fixed">
+    <button class="ctrl-btn" id="theme-btn">theme</button>
+    <button class="ctrl-btn" id="size-btn">font</button>
   </div>
+
+  <span class="top-label">Mehmood</span>
+
+  <ul class="intro-points">
+    <li>polymath</li>
+    <li>i write</li>
+    <li class="no-dot">
+      <form class="suggest-form" name="suggestions" netlify>
+        <div class="suggest-row">
+          <input class="suggest-input" type="text" name="suggestion" placeholder="any suggestions? opinions? thoughts?" required />
+          <button class="suggest-btn" type="submit">send</button>
+        </div>
+      </form>
+    </li>
+  </ul>
+
+  <h2 class="section-title">Essays</h2>
+  <ul class="writing-list">
+    <li><a href="Short Essays/Idk What Should I write.html">Idk What Should I Write</a></li>
+  </ul>
 
   <script>
     (function() {
-      var sizes = [16, 18, 20];
-      var si = parseInt(localStorage.getItem('sz') || '0');
+      var sizes = [16, 18, 20], si = parseInt(localStorage.getItem('sz') || '0');
       var themeBtn = document.getElementById('theme-btn');
-
-      function updateThemeLabel() {
-        themeBtn.textContent = document.documentElement.classList.contains('light') ? 'dark' : 'light';
+      function updateTheme() {
+        themeBtn.textContent = document.documentElement.classList.contains('light') ? 'theme' : 'theme';
       }
-      updateThemeLabel();
-
       themeBtn.addEventListener('click', function() {
         var l = document.documentElement.classList.toggle('light');
         localStorage.setItem('light', l ? '1' : '0');
-        updateThemeLabel();
       });
-
       document.getElementById('size-btn').addEventListener('click', function() {
         si = (si + 1) % sizes.length;
         localStorage.setItem('sz', si);
