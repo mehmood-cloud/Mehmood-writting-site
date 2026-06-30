@@ -1,106 +1,56 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Posts — Mehmood</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Mountains+of+Christmas&family=Fredericka+the+Great&family=Atma&family=DynaPuff&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Style.css" />
-  </head>
-  <body>
-    <main class="page">
-      <a href="index.html" class="home-btn">← Home</a>
-      <header>
-        <h1>Posts</h1>
-      </header>
-      <ol class="list">
-        <li id="post-1"><a href="#">On simplicity</a></li>
-        <li id="post-2"><a href="#">Notes on design</a></li>
-        <li id="post-3"><a href="#">Project: tiny tool</a></li>
-      </ol>
-      <p style="margin-top:28px"><a href="index.html">← Back</a></p>
-    </main>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Writing — Mehmood</title>
+  <link rel="stylesheet" href="Style.css" />
+  <script>
+    (function() {
+      if (localStorage.getItem('dark') === '1' ||
+          (localStorage.getItem('dark') === null && matchMedia('(prefers-color-scheme:dark)').matches))
+        document.documentElement.classList.add('dark');
+      var sz = parseInt(localStorage.getItem('sz') || '0');
+      var sizes = [16, 18, 20];
+      document.documentElement.style.setProperty('--base', sizes[sz] + 'px');
+    })();
+  </script>
+</head>
+<body>
+  <div class="page">
+    <a href="index.html" class="back">← Mehmood</a>
+    <h1>Writing</h1>
+    <hr>
 
-    <!-- Fixed controls in top-right -->
-    <div class="controls-fixed" aria-hidden="false">
-      <button id="size-btn" class="ctrl-btn" aria-pressed="false">Size</button>
-      <button id="theme-btn" class="ctrl-btn" aria-pressed="false">Color</button>
-      <span id="controls-status" aria-live="polite" class="controls-status">&nbsp;</span>
-    </div>
+    <ul class="writing-list">
+      <li>
+        <a href="Short Essays/Idk What Should I write.html">Idk What Should I Write</a>
+        <span class="date">Jun 2026</span>
+      </li>
+    </ul>
 
-    <!-- Random title font script -->
-    <script>
-      (function(){
-        const fonts = ['Hachi Maru Pop','Mountains of Christmas','Henny Penny','Atma','DynaPuff','Fredoka One'];
-        const limit = 4;
-        const pool = fonts.slice(0, Math.max(1, Math.min(limit, fonts.length)));
-        const pick = pool[Math.floor(Math.random()*pool.length)];
-        const nameEl = document.querySelector('h1');
-        if(nameEl){
-          nameEl.style.fontFamily = `'${pick}', cursive`;
-        }
-      })();
-    </script>
+    <footer class="foot">
+      <button class="ctrl-btn" id="theme-btn">◐ light / dark</button>
+      <button class="ctrl-btn" id="size-btn">A+</button>
+    </footer>
+  </div>
 
-    <!-- Size and Color control script -->
-    <script>
-      (function(){
-        const sizeBtn = document.getElementById('size-btn');
-        const themeBtn = document.getElementById('theme-btn');
-        const status = document.getElementById('controls-status');
+  <script>
+    (function() {
+      var sizes = [16, 18, 20];
+      var si = parseInt(localStorage.getItem('sz') || '0');
 
-        const sizeLevels = [1, 1.5, 2, 3];
-        let sizeIndex = 0;
+      document.getElementById('theme-btn').addEventListener('click', function() {
+        var d = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('dark', d ? '1' : '0');
+      });
 
-        const themes = ['theme-1','theme-2','theme-3',''];
-        let themeIndex = 0;
-
-        try{
-          const savedTheme = localStorage.getItem('site-theme');
-          const savedSize = localStorage.getItem('site-size');
-          if(savedSize){
-            const idx = sizeLevels.indexOf(Number(savedSize));
-            if(idx >= 0) sizeIndex = idx;
-          }
-          if(savedTheme){
-            const idx = themes.indexOf(savedTheme);
-            if(idx >= 0) themeIndex = idx;
-          }
-        }catch(e){ }
-
-        function updateSize(){
-          const mult = sizeLevels[sizeIndex];
-          document.body.style.transform = `scale(${mult})`;
-          document.body.style.transformOrigin = 'left top';
-          sizeBtn.textContent = 'Size';
-          sizeBtn.setAttribute('title', mult === 1 ? 'Original size' : '×' + mult);
-          status.textContent = mult === 1 ? 'Size: original' : ('Size: ×' + mult);
-          try{ localStorage.setItem('site-size', mult); }catch(e){}
-        }
-
-        function updateTheme(){
-          document.body.classList.remove('theme-1','theme-2','theme-3');
-          const t = themes[themeIndex];
-          if(t) document.body.classList.add(t);
-          themeBtn.textContent = 'Color';
-          themeBtn.setAttribute('title', t ? t : 'default');
-          status.textContent = t ? ('Theme: ' + t.replace('theme-','')) : 'Theme: default';
-          try{ localStorage.setItem('site-theme', t || ''); }catch(e){}
-        }
-
-        sizeBtn.addEventListener('click', function(){
-          sizeIndex = (sizeIndex + 1) % sizeLevels.length;
-          updateSize();
-        });
-
-        themeBtn.addEventListener('click', function(){
-          themeIndex = (themeIndex + 1) % themes.length;
-          updateTheme();
-        });
-
-        updateSize();
-        updateTheme();
-      })();
-    </script>
-  </body>
+      document.getElementById('size-btn').addEventListener('click', function() {
+        si = (si + 1) % sizes.length;
+        localStorage.setItem('sz', si);
+        document.documentElement.style.setProperty('--base', sizes[si] + 'px');
+      });
+    })();
+  </script>
+</body>
 </html>
