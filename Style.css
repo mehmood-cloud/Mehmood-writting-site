@@ -103,6 +103,7 @@ a:hover { text-decoration: underline; }
 }
 
 .intro-points .no-dot::before { content: ''; margin: 0; }
+.intro-points .no-dot { margin-top: 14px; }
 
 .intro-points a { color: var(--text); }
 .intro-points a:hover { text-decoration: underline; }
